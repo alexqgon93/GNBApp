@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- margins -->
+    <dimen name="margin_medium_big">30dp</dimen>
     <dimen name="margin_big">35dp</dimen>
     <dimen name="margin_giant">60dp</dimen>
     <!-- end margins -->
