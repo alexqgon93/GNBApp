@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GNBApp</string>
+    <string name="app_splash_screen_text">Welcome to your favorite bank</string>
+    <string name="image_logo_bank_splash_screen">SplashScreenImageLogo</string>
+</resources>

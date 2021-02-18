@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- margins -->
+    <dimen name="margin_big">35dp</dimen>
+    <dimen name="margin_giant">60dp</dimen>
+    <!-- end margins -->
+
+    <!-- Splash Screen -->
+    <dimen name="margin_top_splash_screen">269dp</dimen>
+</resources>
