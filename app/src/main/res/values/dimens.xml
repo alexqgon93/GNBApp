@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- margins -->
+    <dimen name="margin_little">5dp</dimen>
+    <dimen name="margin_smallest">10dp</dimen>
+    <dimen name="margin_smaller">15dp</dimen>
+    <dimen name="margin_small">20dp</dimen>
+    <dimen name="margin_medium">25dp</dimen>
     <dimen name="margin_medium_big">30dp</dimen>
     <dimen name="margin_big">35dp</dimen>
     <dimen name="margin_giant">60dp</dimen>
     <!-- end margins -->
+
+    <!-- card view elevation-->
+    <dimen name="card_view_elevation">8dp</dimen>
 
     <!-- Splash Screen -->
     <dimen name="margin_top_splash_screen">269dp</dimen>

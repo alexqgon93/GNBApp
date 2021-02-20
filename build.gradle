@@ -6,6 +6,7 @@ buildscript {
     ext.lifecycle_viewmodel_version = "2.3.0"
     ext.navigation_fragment_version = "2.3.3"
     ext.navigation_version = "2.3.3"
+    ext.koinVersion = "2.0.1"
     repositories {
         google()
         jcenter()
