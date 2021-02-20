@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class RatesElement(
     @SerializedName("from") val from: String,
     @SerializedName("to") val to: String,
-    @SerializedName("rates") val rate: String,
+    @SerializedName("rate") val rate: String,
 )

@@ -23,7 +23,7 @@ class ProductsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_dashboard, container, false)
+        return inflater.inflate(R.layout.fragment_products, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,6 +50,7 @@ class ProductsFragment : Fragment() {
             is MainActivityStateView.ShowProgressBar -> {
                 showProgressBar(true)
             }
+            is MainActivityStateView.ProductSelected -> TODO()
         }
     }
 
