@@ -5,5 +5,4 @@
     <string name="dashboard_toolbar_text">Products</string>
     <string name="title_list_products">List of Products</string>
     <string name="transactions_toolbar_title">Transactions</string>
-    <string name="title_list_transactions">List of transactions of the product</string>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context
 import com.gnb.gnbapp.data.api.RetrofitBuilder
 import com.gnb.gnbapp.data.repository.MainRepository
 import com.gnb.gnbapp.main.MainViewModel
+import com.gnb.gnbapp.transactions.TransactionViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
@@ -15,6 +16,7 @@ class GNBConfigurationApplication {
 
     var modules = module {
         viewModel { MainViewModel(mainRepository = MainRepository(RetrofitBuilder.apiService)) }
+        viewModel { TransactionViewModel() }
     }
 
     fun initializeDependencyInjection(context: Context) {

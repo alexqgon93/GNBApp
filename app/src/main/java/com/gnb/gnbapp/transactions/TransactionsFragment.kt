@@ -5,18 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import com.gnb.gnbapp.R
 import com.gnb.gnbapp.components.ProductsRecyclerView
-import com.gnb.gnbapp.main.MainActivityStateView
-import com.gnb.gnbapp.main.MainViewModel
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import com.gnb.gnbapp.data.model.ProductElement
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class TransactionsFragment : Fragment() {
 
-    private val activityViewModel by sharedViewModel<MainViewModel>()
+    private val viewModel by viewModel<TransactionViewModel>()
     private lateinit var transactionsRecyclerView: ProductsRecyclerView
     private val adapterTransactionsList by lazy { TransactionsAdapter() }
+    private val args: TransactionsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,26 +30,34 @@ class TransactionsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeStateView()
         initUI(view = view)
+        viewModel.processEvent(TransactionEvents.OnGetData(args.product, args.list))
     }
 
     private fun initUI(view: View) {
         transactionsRecyclerView =
             view.findViewById<ProductsRecyclerView>(R.id.transactionsRecyclerView).apply {
-                title = R.string.title_list_transactions
                 adapter = this@TransactionsFragment.adapterTransactionsList
             }
     }
 
-    private fun observeStateView() {
-        activityViewModel.stateView.observe(viewLifecycleOwner, Observer { onStateViewChanged(it) })
+    private fun showTransactionsProgressBar(show: Boolean) {
+        transactionsRecyclerView.progressBar(show)
     }
 
-    private fun onStateViewChanged(stateView: MainActivityStateView) {
+    private fun observeStateView() {
+        viewModel.stateView.observe(viewLifecycleOwner, { onStateViewChanged(it) })
+    }
+
+    private fun onStateViewChanged(stateView: TransactionStateView) {
         when (stateView) {
-            is MainActivityStateView.ShowProgressBar -> Unit
-            is MainActivityStateView.ProductSelected -> Unit
-            is MainActivityStateView.ErrorData -> Unit
-            is MainActivityStateView.ReceivedProducts -> Unit
+            is TransactionStateView.ShowTransactionsProgressBar -> showTransactionsProgressBar(show = true)
+            is TransactionStateView.FilteredTransactions -> showTransactions(transactions = stateView.transactions)
+            is TransactionStateView.ShowErrorData -> TODO()
         }
+    }
+
+    private fun showTransactions(transactions: MutableList<ProductElement>) {
+        showTransactionsProgressBar(show = false)
+        adapterTransactionsList.submitList(transactionsList = transactions)
     }
 }

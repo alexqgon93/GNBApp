@@ -8,8 +8,7 @@ import com.gnb.gnbapp.R
 import com.gnb.gnbapp.data.model.ProductElement
 import com.gnb.gnbapp.utils.inflate
 
-class TransactionsAdapter() :
-    RecyclerView.Adapter<ProductsViewHolder>() {
+class TransactionsAdapter : RecyclerView.Adapter<ProductsViewHolder>() {
 
     private val items: MutableList<ProductElement> = ArrayList()
 
@@ -27,15 +26,14 @@ class TransactionsAdapter() :
 
     override fun getItemCount(): Int = items.size
 
-    fun submitList(productsList: MutableList<ProductElement>) {
+    fun submitList(transactionsList: MutableList<ProductElement>) {
         items.apply {
             clear()
-            addAll(productsList)
+            addAll(transactionsList)
         }
-        notifyItemRangeChanged(0, productsList.size)
+        notifyItemRangeChanged(0, transactionsList.size)
     }
 }
-
 
 class ProductsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val titleProduct: TextView = view.findViewById(R.id.titleProduct)
@@ -49,6 +47,6 @@ class ProductsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(item: ProductElement) {
         titleProduct.text = item.sku
-        totalPurchased.text = item.amount
+        totalPurchased.text = "${item.amount} ${item.currency}"
     }
 }

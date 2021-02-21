@@ -8,26 +8,30 @@
 
     <fragment
         android:id="@+id/productsFragment"
-        android:name="com.gnb.gnbapp.dashboard.view.ProductsFragment"
+        android:name="com.gnb.gnbapp.products.ProductsFragment"
         android:label=" "
         tools:layout="@layout/fragment_products">
 
         <action
             android:id="@+id/onClickProduct"
-            app:destination="@id/transactionsFragment" />
+            app:destination="@id/transactionsActivity" />
 
     </fragment>
 
-    <fragment
-        android:id="@+id/transactionsFragment"
-        android:name="com.gnb.gnbapp.transactions.TransactionsFragment"
+    <activity
+        android:id="@+id/transactionsActivity"
+        android:name="com.gnb.gnbapp.transactions.TransactionsActivity"
         android:label=" "
-        tools:layout="@layout/fragment_transactions">
-
+        tools:layout="@layout/activity_transactions">
         <argument
             android:name="product"
             app:argType="string"
             app:nullable="false" />
 
-    </fragment>
+        <argument
+            android:name="list"
+            app:argType="com.gnb.gnbapp.data.model.Transactions"
+            app:nullable="false" />
+    </activity>
+
 </navigation>

@@ -1,4 +1,4 @@
-package com.gnb.gnbapp.dashboard.view
+package com.gnb.gnbapp.products
 
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +37,6 @@ class ProductsAdapter(private val onEventListener: (MainActivityEvents) -> Unit)
     }
 }
 
-
 class ProductsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val contentView by lazy { itemView.findViewById<View>(R.id.contentView) }
     private val titleProduct: TextView = view.findViewById(R.id.titleProduct)
@@ -52,6 +51,6 @@ class ProductsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(item: ProductElement, onEventListener: (MainActivityEvents) -> Unit) {
         contentView.setOnClickListener { onEventListener(MainActivityEvents.OnProductSelected(item)) }
         titleProduct.text = item.sku
-        totalPurchased.text = item.amount
+        totalPurchased.text = "${item.amount} EUR"
     }
 }
