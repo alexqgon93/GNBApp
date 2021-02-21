@@ -14,12 +14,12 @@
             android:id="@+id/dashboardToolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:title="@string/dashboard_toolbar_text" />
+            app:title="@string/transactions_toolbar_title" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/container"
+        android:id="@+id/containerTransactions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -31,7 +31,7 @@
             android:paddingBottom="@dimen/margin_medium_big">
 
             <com.gnb.gnbapp.components.ProductsRecyclerView
-                android:id="@+id/ratesRecyclerView"
+                android:id="@+id/transactionsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/gradient_splash_screen" />

@@ -6,17 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.gnb.gnbapp.main.MainActivityEvents
 import com.gnb.gnbapp.main.MainActivityStateView
 import com.gnb.gnbapp.main.MainViewModel
 import com.gnb.gnbapp.R
-import com.gnb.gnbapp.components.RatesRecyclerView
+import com.gnb.gnbapp.components.ProductsRecyclerView
+import com.gnb.gnbapp.data.model.ProductElement
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class ProductsFragment : Fragment() {
 
     private val activityViewModel by sharedViewModel<MainViewModel>()
-    private lateinit var ratesRecyclerView: RatesRecyclerView
+    private lateinit var productsRecyclerView: ProductsRecyclerView
+    private val adapterProductsList by lazy { ProductsAdapter { activityViewModel.processEvent(it) } }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,16 +32,17 @@ class ProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeStateView()
-        initUI(view)
+        initUI(view = view)
         activityViewModel.processEvent(MainActivityEvents.OnGetData)
 
     }
 
     private fun initUI(view: View) {
-        ratesRecyclerView = view.findViewById<RatesRecyclerView>(R.id.ratesRecyclerView).apply {
-            title = R.string.title_list_products
-            adapter = ProductsAdapter(context)
-        }
+        productsRecyclerView =
+            view.findViewById<ProductsRecyclerView>(R.id.ratesRecyclerView).apply {
+                title = R.string.title_list_products
+                adapter = this@ProductsFragment.adapterProductsList
+            }
     }
 
     private fun observeStateView() {
@@ -48,14 +52,25 @@ class ProductsFragment : Fragment() {
     private fun onStateViewChanged(stateView: MainActivityStateView) {
         when (stateView) {
             is MainActivityStateView.ShowProgressBar -> {
-                showProgressBar(true)
+                showProgressBar(show = true)
             }
-            is MainActivityStateView.ProductSelected -> TODO()
+            is MainActivityStateView.ProductSelected -> showTransactions(stateView.product)
+            is MainActivityStateView.ErrorData -> TODO()
+            is MainActivityStateView.ReceivedProducts -> showProducts(stateView.products)
+
         }
     }
 
     private fun showProgressBar(show: Boolean) {
-        ratesRecyclerView.progressBar(show)
+        productsRecyclerView.progressBar(show)
     }
 
+    private fun showProducts(products: MutableList<ProductElement>) {
+        showProgressBar(show = false)
+        adapterProductsList.submitList(productsList = products)
+    }
+
+    private fun showTransactions(product: ProductElement) {
+        findNavController().navigate(ProductsFragmentDirections.onClickProduct(product.sku))
+    }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/products_graph"
+    app:startDestination="@id/productsFragment"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.gnb.gnbapp.dashboard.view.ProductsFragment"
+        android:label=" "
+        tools:layout="@layout/fragment_products">
+
+        <action
+            android:id="@+id/onClickProduct"
+            app:destination="@id/transactionsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/transactionsFragment"
+        android:name="com.gnb.gnbapp.transactions.TransactionsFragment"
+        android:label=" "
+        tools:layout="@layout/fragment_transactions">
+
+        <argument
+            android:name="product"
+            app:argType="string"
+            app:nullable="false" />
+
+    </fragment>
+</navigation>

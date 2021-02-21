@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gnb.gnbapp.R
 import com.gnb.gnbapp.utils.inflate
 
-class RatesRecyclerView(context: Context, attributeSet: AttributeSet? = null) :
+class ProductsRecyclerView(context: Context, attributeSet: AttributeSet? = null) :
     FrameLayout(context, attributeSet) {
     init {
         inflate(R.layout.rates_recycler_view, true)

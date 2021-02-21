@@ -12,11 +12,12 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fitsSystemWindows="true"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        class="com.gnb.gnbapp.dashboard.view.ProductsFragment"
-        tools:ignore="FragmentTagUsage"/>
+        app:navGraph="@navigation/main_nav_graph"
+        tools:ignore="FragmentTagUsage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

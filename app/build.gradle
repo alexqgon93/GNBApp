@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
+apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: "com.diffplug.gradle.spotless"
 
 android {
     compileSdkVersion 30
@@ -51,4 +53,20 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
+
+spotless {
+    kotlin {
+        target '**/*.kt'
+        ktlint()
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
+    format 'xml', {
+        target '**/*.xml'
+        indentWithSpaces()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
 }

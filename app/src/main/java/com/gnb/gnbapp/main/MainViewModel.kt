@@ -1,6 +1,5 @@
 package com.gnb.gnbapp.main
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,12 +11,16 @@ import kotlinx.coroutines.launch
 
 sealed class MainActivityEvents {
     object OnGetData : MainActivityEvents()
-    class OnProductSelected(val product: String) : MainActivityEvents()
+    object OnErrorData : MainActivityEvents()
+    class OnProductSelected(val product: ProductElement) : MainActivityEvents()
+    class OnReceivedProducts(val products: MutableList<ProductElement>) : MainActivityEvents()
 }
 
 sealed class MainActivityStateView {
     object ShowProgressBar : MainActivityStateView()
-    class ProductSelected(val product: String) : MainActivityStateView()
+    object ErrorData : MainActivityStateView()
+    class ProductSelected(val product: ProductElement) : MainActivityStateView()
+    class ReceivedProducts(val products: MutableList<ProductElement>) : MainActivityStateView()
 }
 
 class MainViewModel(
@@ -28,7 +31,7 @@ class MainViewModel(
     val stateView: LiveData<MainActivityStateView>
         get() = mutableStateView
     private lateinit var ratesList: List<RatesElement>
-    private lateinit var productsList: List<ProductElement>
+    private val productsList: MutableList<ProductElement> = ArrayList()
 
     fun processEvent(event: MainActivityEvents) {
         mutableStateView.postValue(internalProcessEvent(event))
@@ -44,6 +47,8 @@ class MainViewModel(
             is MainActivityEvents.OnProductSelected -> {
                 MainActivityStateView.ProductSelected(event.product)
             }
+            is MainActivityEvents.OnReceivedProducts -> MainActivityStateView.ReceivedProducts(event.products)
+            is MainActivityEvents.OnErrorData -> MainActivityStateView.ErrorData
         }
     }
 
@@ -51,9 +56,10 @@ class MainViewModel(
         viewModelScope.launch {
             val products = mainRepository.getProducts()
             if (products.isNotEmpty()) {
-                productsList = products
+                //parseCurrency(products)
+                getProducts(products)
             } else {
-                Log.d("TAG", "error on call")
+                processEvent(MainActivityEvents.OnErrorData)
             }
         }
     }
@@ -64,8 +70,29 @@ class MainViewModel(
             if (rates.isNotEmpty()) {
                 ratesList = rates
             } else {
-                Log.d("TAG", "error on call")
+                processEvent(MainActivityEvents.OnErrorData)
             }
         }
     }
+
+    private fun getProducts(products: List<ProductElement>) {
+        products.forEach { item ->
+            if (productsList.isEmpty()) {
+                productsList.add(item)
+            } else {
+                val found = productsList.any { productElement -> productElement.sku == item.sku }
+                if (!found) {
+                    productsList.add(item)
+                }
+            }
+        }
+        processEvent(MainActivityEvents.OnReceivedProducts(productsList))
+    }
+
+    /*private fun parseCurrency(products: List<ProductElement>) {
+        if (ratesList.isNotEmpty() && productsList.isNotEmpty()) {
+
+
+        }
+    }*/
 }

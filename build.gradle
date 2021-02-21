@@ -3,10 +3,12 @@ buildscript {
     ext.kotlin_version = "1.4.20"
     ext.coroutines_version = "1.4.1"
     ext.retrofitVersion = "2.8.1"
+    ext.navigation_safe_args_version = "2.2.2"
     ext.lifecycle_viewmodel_version = "2.3.0"
     ext.navigation_fragment_version = "2.3.3"
     ext.navigation_version = "2.3.3"
     ext.koinVersion = "2.0.1"
+    ext.spotless_version = "3.28.1"
     repositories {
         google()
         jcenter()
@@ -14,6 +16,8 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_safe_args_version"
+        classpath "com.diffplug.spotless:spotless-plugin-gradle:$spotless_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

@@ -1,4 +1,4 @@
-package com.gnb.gnbapp.dashboard.view
+package com.gnb.gnbapp.transactions
 
 import android.view.View
 import android.view.ViewGroup
@@ -6,10 +6,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gnb.gnbapp.R
 import com.gnb.gnbapp.data.model.ProductElement
-import com.gnb.gnbapp.main.MainActivityEvents
 import com.gnb.gnbapp.utils.inflate
 
-class ProductsAdapter(private val onEventListener: (MainActivityEvents) -> Unit) :
+class TransactionsAdapter() :
     RecyclerView.Adapter<ProductsViewHolder>() {
 
     private val items: MutableList<ProductElement> = ArrayList()
@@ -20,7 +19,7 @@ class ProductsAdapter(private val onEventListener: (MainActivityEvents) -> Unit)
 
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
         getItemPosition(position).let {
-            holder.bind(it, onEventListener)
+            holder.bind(it)
         }
     }
 
@@ -39,7 +38,6 @@ class ProductsAdapter(private val onEventListener: (MainActivityEvents) -> Unit)
 
 
 class ProductsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    private val contentView by lazy { itemView.findViewById<View>(R.id.contentView) }
     private val titleProduct: TextView = view.findViewById(R.id.titleProduct)
     private val totalPurchased: TextView = view.findViewById(R.id.totalPurchased)
 
@@ -49,8 +47,7 @@ class ProductsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    fun bind(item: ProductElement, onEventListener: (MainActivityEvents) -> Unit) {
-        contentView.setOnClickListener { onEventListener(MainActivityEvents.OnProductSelected(item)) }
+    fun bind(item: ProductElement) {
         titleProduct.text = item.sku
         totalPurchased.text = item.amount
     }
