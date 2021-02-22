@@ -6,10 +6,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gnb.gnbapp.R
 import com.gnb.gnbapp.data.model.ProductElement
-import com.gnb.gnbapp.main.MainActivityEvents
+import com.gnb.gnbapp.products.model.ProductEvents
 import com.gnb.gnbapp.utils.inflate
 
-class ProductsAdapter(private val onEventListener: (MainActivityEvents) -> Unit) :
+class ProductsAdapter(private val onEventListener: (ProductEvents) -> Unit) :
     RecyclerView.Adapter<ProductsViewHolder>() {
 
     private val items: MutableList<ProductElement> = ArrayList()
@@ -48,8 +48,8 @@ class ProductsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    fun bind(item: ProductElement, onEventListener: (MainActivityEvents) -> Unit) {
-        contentView.setOnClickListener { onEventListener(MainActivityEvents.OnProductSelected(item)) }
+    fun bind(item: ProductElement, onEventListener: (ProductEvents) -> Unit) {
+        contentView.setOnClickListener { onEventListener(ProductEvents.OnProductSelected(item)) }
         titleProduct.text = item.sku
         totalPurchased.text = "${item.amount} EUR"
     }

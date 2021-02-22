@@ -1,4 +1,4 @@
-package com.gnb.gnbapp.products
+package com.gnb.gnbapp.products.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,14 +10,15 @@ import com.gnb.gnbapp.R
 import com.gnb.gnbapp.components.ProductsRecyclerView
 import com.gnb.gnbapp.data.model.ProductElement
 import com.gnb.gnbapp.data.model.Transactions
-import com.gnb.gnbapp.main.MainActivityEvents
-import com.gnb.gnbapp.main.MainActivityStateView
-import com.gnb.gnbapp.main.MainViewModel
+import com.gnb.gnbapp.products.ProductsAdapter
+import com.gnb.gnbapp.products.model.ProductEvents
+import com.gnb.gnbapp.products.model.ProductStateView
+import com.gnb.gnbapp.products.model.ProductsViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ProductsFragment : Fragment() {
 
-    private val activityViewModel by viewModel<MainViewModel>()
+    private val activityViewModel by viewModel<ProductsViewModel>()
     private lateinit var productsRecyclerView: ProductsRecyclerView
     private val adapterProductsList by lazy { ProductsAdapter { activityViewModel.processEvent(it) } }
 
@@ -33,7 +34,7 @@ class ProductsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeStateView()
         initUI(view = view)
-        activityViewModel.processEvent(MainActivityEvents.OnGetData)
+        activityViewModel.processEvent(ProductEvents.OnGetData)
     }
 
     private fun initUI(view: View) {
@@ -48,17 +49,17 @@ class ProductsFragment : Fragment() {
         activityViewModel.stateView.observe(viewLifecycleOwner, { onStateViewChanged(it) })
     }
 
-    private fun onStateViewChanged(stateView: MainActivityStateView) {
+    private fun onStateViewChanged(stateView: ProductStateView) {
         when (stateView) {
-            is MainActivityStateView.ShowProductProgressBar -> {
+            is ProductStateView.ShowProductProgressBar -> {
                 showProgressBar(show = true)
             }
-            is MainActivityStateView.ProductSelected -> showTransactions(
+            is ProductStateView.ProductSelected -> showTransactions(
                 stateView.product,
                 stateView.productsResponse
             )
-            is MainActivityStateView.ReceivedProducts -> showProducts(stateView.products)
-            MainActivityStateView.ErrorData -> TODO()
+            is ProductStateView.ReceivedProducts -> showProducts(stateView.products)
+            ProductStateView.ErrorData -> TODO()
         }
     }
 

@@ -1,4 +1,4 @@
-package com.gnb.gnbapp.transactions
+package com.gnb.gnbapp.transactions.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,10 @@ import androidx.navigation.fragment.navArgs
 import com.gnb.gnbapp.R
 import com.gnb.gnbapp.components.ProductsRecyclerView
 import com.gnb.gnbapp.data.model.ProductElement
+import com.gnb.gnbapp.transactions.*
+import com.gnb.gnbapp.transactions.model.TransactionEvents
+import com.gnb.gnbapp.transactions.model.TransactionStateView
+import com.gnb.gnbapp.transactions.model.TransactionViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class TransactionsFragment : Fragment() {

@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/productsFragment"
-        android:name="com.gnb.gnbapp.products.ProductsFragment"
+        android:name="com.gnb.gnbapp.products.view.ProductsFragment"
         android:label=" "
         tools:layout="@layout/fragment_products">
 

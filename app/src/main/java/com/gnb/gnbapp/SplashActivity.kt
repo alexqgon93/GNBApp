@@ -9,7 +9,7 @@ import com.gnb.gnbapp.main.MainActivity
 
 class SplashActivity: AppCompatActivity() {
     companion object{
-        const val SPLASH_TIME_OUT: Long = 3000 // duration of 1 second
+        const val SPLASH_TIME_OUT: Long = 1000
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

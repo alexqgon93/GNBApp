@@ -3,8 +3,8 @@ package com.gnb.gnbapp
 import android.content.Context
 import com.gnb.gnbapp.data.api.RetrofitBuilder
 import com.gnb.gnbapp.data.repository.MainRepository
-import com.gnb.gnbapp.main.MainViewModel
-import com.gnb.gnbapp.transactions.TransactionViewModel
+import com.gnb.gnbapp.products.model.ProductsViewModel
+import com.gnb.gnbapp.transactions.model.TransactionViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
@@ -15,7 +15,7 @@ import org.koin.dsl.module
 class GNBConfigurationApplication {
 
     var modules = module {
-        viewModel { MainViewModel(mainRepository = MainRepository(RetrofitBuilder.apiService)) }
+        viewModel { ProductsViewModel(mainRepository = MainRepository(RetrofitBuilder.apiService)) }
         viewModel { TransactionViewModel() }
     }
 
