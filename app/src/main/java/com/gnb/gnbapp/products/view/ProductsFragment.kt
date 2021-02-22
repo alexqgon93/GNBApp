@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import android.widget.Toast.makeText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gnb.gnbapp.R
@@ -73,6 +75,11 @@ class ProductsFragment : Fragment() {
     }
 
     private fun showTransactions(product: ProductElement, productsResponse: Transactions) {
+        makeText(
+            context,
+            getString(R.string.message_transition_products_to_transactions),
+            Toast.LENGTH_SHORT
+        ).show()
         findNavController().navigate(
             ProductsFragmentDirections.onClickProduct(
                 product = product.sku,

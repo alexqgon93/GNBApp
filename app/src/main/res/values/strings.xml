@@ -5,4 +5,5 @@
     <string name="dashboard_toolbar_text">Products</string>
     <string name="title_list_products">List of Products</string>
     <string name="transactions_toolbar_title">Transactions</string>
+    <string name="message_transition_products_to_transactions">Charging Transactions...</string>
 </resources>
