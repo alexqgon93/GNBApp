@@ -9,12 +9,12 @@ import com.gnb.gnbapp.data.model.RatesElement
 import com.gnb.gnbapp.data.model.Transactions
 import com.gnb.gnbapp.data.repository.MainRepository
 import com.gnb.gnbapp.utils.parseProductsToEur
-import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
-import java.util.*
+import java.util.Locale
 import kotlin.collections.ArrayList
 import kotlin.math.round
+import kotlinx.coroutines.launch
 
 sealed class ProductEvents {
     object OnGetData : ProductEvents()
@@ -116,7 +116,7 @@ class ProductsViewModel(
                 }
             }
         }
-        val formatter = DecimalFormat(PATTERN, DecimalFormatSymbols.getInstance(Locale.GERMANY));
+        val formatter = DecimalFormat(PATTERN, DecimalFormatSymbols.getInstance(Locale.GERMANY))
         productsList.forEach { productElement ->
             productElement.amount = formatter.format(productElement.amount.toDouble())
         }

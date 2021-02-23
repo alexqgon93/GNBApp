@@ -1,9 +1,11 @@
 package com.gnb.gnbapp.products.view
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.makeText
 import androidx.fragment.app.Fragment
@@ -23,6 +25,7 @@ class ProductsFragment : Fragment() {
     private val activityViewModel by viewModel<ProductsViewModel>()
     private lateinit var productsRecyclerView: ProductsRecyclerView
     private val adapterProductsList by lazy { ProductsAdapter { activityViewModel.processEvent(it) } }
+    private lateinit var titleProducts: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,9 +45,10 @@ class ProductsFragment : Fragment() {
     private fun initUI(view: View) {
         productsRecyclerView =
             view.findViewById<ProductsRecyclerView>(R.id.ratesRecyclerView).apply {
-                title = R.string.title_list_products
                 adapter = this@ProductsFragment.adapterProductsList
             }
+        titleProducts = view.findViewById(R.id.titleProducts)
+        titleProducts.text = getString(R.string.title_list_products)
     }
 
     private fun observeStateView() {
@@ -60,7 +64,7 @@ class ProductsFragment : Fragment() {
                 stateView.product, stateView.productsResponse, stateView.totalPurchased
             )
             is ProductStateView.ReceivedProducts -> showProducts(stateView.products)
-            ProductStateView.ErrorData -> TODO()
+            ProductStateView.ErrorData -> showDialog()
         }
     }
 
@@ -90,5 +94,13 @@ class ProductsFragment : Fragment() {
                 list = productsResponse,
             )
         )
+    }
+
+    private fun showDialog() {
+        AlertDialog.Builder(context).setTitle(getString(R.string.errorTitle))
+            .setMessage(getString(R.string.dialog_on_get_data_error_product_screen))
+            .setPositiveButton(getString(R.string.dialog_positive_button)) { _, _ ->
+                activityViewModel.processEvent(ProductEvents.OnGetData)
+            }.show()
     }
 }

@@ -22,11 +22,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_smaller"
-                android:gravity="center"
                 app:layout_constraintEnd_toStartOf="@id/productAmount"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="transactions of product: " />
+                tools:text="@string/products_title_transaction_screen" />
 
             <TextView
                 android:id="@+id/productAmount"

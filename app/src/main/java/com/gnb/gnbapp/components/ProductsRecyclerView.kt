@@ -16,17 +16,12 @@ class ProductsRecyclerView(context: Context, attributeSet: AttributeSet? = null)
     init {
         inflate(R.layout.products_recycler_view, true)
     }
-
-    private val titleView by lazy { findViewById<TextView>(R.id.titleView) }
     private val recyclerView: RecyclerView by lazy {
         findViewById<RecyclerView>(R.id.ratesList).apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
     }
     private val progressBar by lazy { findViewById<ProgressBar>(R.id.progressBar) }
-
-    var title: Int = 0
-        set(value) = titleView.setText(value)
 
     var adapter: RecyclerView.Adapter<*>?
         set(value) {

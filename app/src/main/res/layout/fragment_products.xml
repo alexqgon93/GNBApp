@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -30,6 +31,18 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="@dimen/margin_medium_big">
+
+            <TextView
+                android:id="@+id/titleProducts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_smaller"
+                android:layout_marginTop="@dimen/margin_smaller"
+                android:layout_marginEnd="@dimen/margin_smaller"
+                app:layout_constraintEnd_toStartOf="@id/productAmount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/title_list_products" />
 
             <com.gnb.gnbapp.components.ProductsRecyclerView
                 android:id="@+id/ratesRecyclerView"

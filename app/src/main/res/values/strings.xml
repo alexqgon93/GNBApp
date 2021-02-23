@@ -5,5 +5,14 @@
     <string name="dashboard_toolbar_text">Products</string>
     <string name="title_list_products">List of Products</string>
     <string name="transactions_toolbar_title">Transactions</string>
-    <string name="message_transition_products_to_transactions">Charging Transactions...</string>
+    <string name="message_transition_products_to_transactions">Charging Transactions…</string>
+    <string name="products_title_transaction_screen">Product: %s</string>
+    <string name="total_purchased_transaction_screen">Total purchased: %s</string>
+    <string name="transaction_item">%1s %2s</string>
+    <string name="to_eur_transaction_screen">To Eur</string>
+    <string name="original_currency">Original Currency</string>
+    <string name="errorTitle">An Error has Occurred</string>
+    <string name="dialog_positive_button">OK</string>
+    <string name="dialog_error_message">Please the was something wrong, try again later</string>
+    <string name="dialog_on_get_data_error_product_screen">We will try again, if the error persist, you should restart the app</string>
 </resources>
