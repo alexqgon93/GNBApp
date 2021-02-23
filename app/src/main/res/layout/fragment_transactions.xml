@@ -19,10 +19,9 @@
 
             <TextView
                 android:id="@+id/productType"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_smaller"
-                app:layout_constraintEnd_toStartOf="@id/productAmount"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/products_title_transaction_screen" />
@@ -32,9 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_smaller"
-                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/productType"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="transactions of product: " />
 
