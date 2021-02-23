@@ -9,20 +9,28 @@ import com.gnb.gnbapp.data.model.RatesElement
 import com.gnb.gnbapp.data.model.Transactions
 import com.gnb.gnbapp.data.repository.MainRepository
 import com.gnb.gnbapp.utils.parseProductsToEur
-import kotlin.math.round
 import kotlinx.coroutines.launch
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.math.round
 
 sealed class ProductEvents {
     object OnGetData : ProductEvents()
     object OnErrorData : ProductEvents()
-    class OnProductSelected(val product: ProductElement) : ProductEvents()
+    class OnProductSelected(val product: ProductElement, val amount: String) : ProductEvents()
     class OnReceivedProducts(val products: MutableList<ProductElement>) : ProductEvents()
 }
 
 sealed class ProductStateView {
     object ShowProductProgressBar : ProductStateView()
     object ErrorData : ProductStateView()
-    class ProductSelected(val product: ProductElement, val productsResponse: Transactions) :
+    class ProductSelected(
+        val product: ProductElement,
+        val productsResponse: Transactions,
+        val totalPurchased: String
+    ) :
         ProductStateView()
 
     class ReceivedProducts(val products: MutableList<ProductElement>) : ProductStateView()
@@ -35,6 +43,7 @@ class ProductsViewModel(
 
     companion object {
         const val CURRENCY = "EUR"
+        const val PATTERN = "###,###,###.## €"
     }
 
     val stateView: LiveData<ProductStateView>
@@ -55,7 +64,11 @@ class ProductsViewModel(
                 ProductStateView.ShowProductProgressBar
             }
             is ProductEvents.OnProductSelected -> {
-                ProductStateView.ProductSelected(event.product, Transactions(productsResponse))
+                ProductStateView.ProductSelected(
+                    event.product,
+                    Transactions(productsResponse),
+                    event.amount
+                )
             }
             is ProductEvents.OnReceivedProducts -> ProductStateView.ReceivedProducts(event.products)
             is ProductEvents.OnErrorData -> ProductStateView.ErrorData
@@ -64,9 +77,9 @@ class ProductsViewModel(
 
     private fun getProductsData() {
         viewModelScope.launch {
-            val products = mainRepository.getProducts()
-            if (products.isNotEmpty()) {
-                productsResponse = products
+            productsResponse = mainRepository.getProducts()
+            if (productsResponse.isNotEmpty()) {
+                val products = productsResponse
                 getProducts(parseProductsToEur(products, ratesList))
             } else {
                 processEvent(ProductEvents.OnErrorData)
@@ -102,6 +115,10 @@ class ProductsViewModel(
                     }
                 }
             }
+        }
+        val formatter = DecimalFormat(PATTERN, DecimalFormatSymbols.getInstance(Locale.GERMANY));
+        productsList.forEach { productElement ->
+            productElement.amount = formatter.format(productElement.amount.toDouble())
         }
         processEvent(ProductEvents.OnReceivedProducts(productsList))
     }

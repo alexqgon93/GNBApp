@@ -57,8 +57,7 @@ class ProductsFragment : Fragment() {
                 showProgressBar(show = true)
             }
             is ProductStateView.ProductSelected -> showTransactions(
-                stateView.product,
-                stateView.productsResponse
+                stateView.product, stateView.productsResponse, stateView.totalPurchased
             )
             is ProductStateView.ReceivedProducts -> showProducts(stateView.products)
             ProductStateView.ErrorData -> TODO()
@@ -74,7 +73,11 @@ class ProductsFragment : Fragment() {
         adapterProductsList.submitList(productsList = products)
     }
 
-    private fun showTransactions(product: ProductElement, productsResponse: Transactions) {
+    private fun showTransactions(
+        product: ProductElement,
+        productsResponse: Transactions,
+        totalPurchased: String
+    ) {
         makeText(
             context,
             getString(R.string.message_transition_products_to_transactions),
@@ -83,7 +86,8 @@ class ProductsFragment : Fragment() {
         findNavController().navigate(
             ProductsFragmentDirections.onClickProduct(
                 product = product.sku,
-                list = productsResponse
+                totalPurchased = totalPurchased,
+                list = productsResponse,
             )
         )
     }

@@ -13,6 +13,7 @@ import com.gnb.gnbapp.transactions.*
 import com.gnb.gnbapp.transactions.model.TransactionEvents
 import com.gnb.gnbapp.transactions.model.TransactionStateView
 import com.gnb.gnbapp.transactions.model.TransactionViewModel
+import com.gnb.gnbapp.transactions.model.TransactionsAdapter
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class TransactionsFragment : Fragment() {

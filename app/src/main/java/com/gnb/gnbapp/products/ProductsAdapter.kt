@@ -49,8 +49,8 @@ class ProductsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     fun bind(item: ProductElement, onEventListener: (ProductEvents) -> Unit) {
-        contentView.setOnClickListener { onEventListener(ProductEvents.OnProductSelected(item)) }
+        contentView.setOnClickListener { onEventListener(ProductEvents.OnProductSelected(item, item.amount)) }
         titleProduct.text = item.sku
-        totalPurchased.text = "${item.amount} EUR"
+        totalPurchased.text = item.amount
     }
 }

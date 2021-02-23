@@ -18,9 +18,15 @@
             app:nullable="false" />
 
         <argument
+            android:name="totalPurchased"
+            app:argType="string"
+            app:nullable="false" />
+
+        <argument
             android:name="list"
             app:argType="com.gnb.gnbapp.data.model.Transactions"
             app:nullable="false" />
+        
     </fragment>
 
 </navigation>

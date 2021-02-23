@@ -14,7 +14,7 @@ import com.gnb.gnbapp.utils.inflate
 class ProductsRecyclerView(context: Context, attributeSet: AttributeSet? = null) :
     FrameLayout(context, attributeSet) {
     init {
-        inflate(R.layout.rates_recycler_view, true)
+        inflate(R.layout.products_recycler_view, true)
     }
 
     private val titleView by lazy { findViewById<TextView>(R.id.titleView) }

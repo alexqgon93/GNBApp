@@ -1,4 +1,4 @@
-package com.gnb.gnbapp.transactions
+package com.gnb.gnbapp.transactions.model
 
 import android.view.View
 import android.view.ViewGroup
